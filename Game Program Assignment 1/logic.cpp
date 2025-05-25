@@ -71,5 +71,62 @@ void logic::scrambleWords() {
 
 		scrambledWords.push_back(scrambled);
 	}
+
+}
+
+void logic::play() {
+	std::cout << "Welcome to the Scrambling Game!\n";
+	std::cout << "Unscramble the word. you have 60 seconds. you have one try per word. \n \n";
+
+	correctWords.clear(); //clean slate
+
+	for (size_t i = 0; i < scrambledWords.size(); i++) {
+		std::cout << "Scrambled Word #" << (i + 1) << ": " << scrambledWords[i] << std::endl;
+		std::cout << "Your guess: ";
+
+		std::string guess;
+		std::cin >> guess;
+
+
+		if (guess == selectedWords[i]) {
+			std::cout << "Correct! \n\n";
+			correctWords.push_back(guess);
+		}
+		else {
+			std::cout << "Incorrect. The correct word was " << selectedWords[i] << "\n\n";
+		}
+	}
+}
+
+void logic::showResults() {
+	int score = static_cast<int>(correctWords.size());
+
+	std::cout << "\n==============================\n";
+	std::cout << "         Game Results         \n";
+	std::cout << "==============================\n";
+	std::cout << "Correct Answers: " << score << " out of 5\n";
+
+
+	std::string level;
+	
+	if (score == 5) {
+		level = "Genius!";
+	}
+	else if (score == 4) {
+		level = "Smart!";
+	}
+	else if (score == 3) {
+		level = "Average.";
+	}
+	else if (score == 2) {
+		level = "Below Average.";
+	}
+	else {
+		level = "Try Again!";
+	}
+
+	std::cout << "Your Intellect Level: " << level << "\n";
+
+
 }
 
