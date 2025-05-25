@@ -55,3 +55,19 @@ void logic::selectRandomWords() {
 	}
 }
 
+void logic::scrambleWords() {
+	std::random_device rd;
+	std::mt19937 g(rd());
+
+	scrambledWords.clear(); // this allows to start fresh
+
+	for (const std::string& word : selectedWords) {
+		std::string scrambled = word;
+
+		std::shuffle(scrambled.begin(), scrambled.end(), g);
+		while (scrambled == word && word.length() > 1) {
+			std::shuffle(scrambled.begin(), scrambled.end(), g);
+		}
+	}
+}
+
