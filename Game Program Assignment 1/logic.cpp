@@ -68,6 +68,8 @@ void logic::scrambleWords() {
 		while (scrambled == word && word.length() > 1) {
 			std::shuffle(scrambled.begin(), scrambled.end(), g);
 		}
+
+		scrambledWords.push_back(scrambled);
 	}
 }
 
