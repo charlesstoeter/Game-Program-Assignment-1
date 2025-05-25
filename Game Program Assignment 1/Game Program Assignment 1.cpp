@@ -3,7 +3,6 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-
 void * input(ALLEGRO_THREAD* ptr, void* arg);
 void * timer(ALLEGRO_THREAD* ptr, void* arg);
 

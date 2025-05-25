@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <random>
+#include <allegro5/allegro.h>
 
 logic::logic() {}
 
@@ -74,36 +75,68 @@ void logic::scrambleWords() {
 
 }
 
-void logic::play() {
-	std::cout << "Welcome to the Scrambling Game!\n";
-	std::cout << "Unscramble the word. you have 60 seconds. you have one try per word. \n \n";
+void logic::play(int secondsPassedSoFar) {
+	correctWords.clear();
 
-	correctWords.clear(); //clean slate
+	std::cout << "\nWord Unscrambler Game\n";
+	std::cout << "You have 60 seconds total to guess all the words.\n\n";
 
-	for (size_t i = 0; i < scrambledWords.size(); i++) {
-		std::cout << "Scrambled Word #" << (i + 1) << ": " << scrambledWords[i] << std::endl;
+	// Create a local Allegro timer to track time inside play()
+	ALLEGRO_TIMER* timer = al_create_timer(1.0); // 1-second interval
+	ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
+	al_register_event_source(queue, al_get_timer_event_source(timer));
+	al_start_timer(timer);
+
+	int secondsPassed = secondsPassedSoFar;
+
+	for (size_t i = 0; i < scrambledWords.size(); ++i) {
+		if (secondsPassed >= 60) {
+			std::cout << "\nTime's up!\n";
+			break;
+		}
+
+		// Prompt and input
+		std::cout << "Scrambled Word #" << (i + 1) << ": " << scrambledWords[i] << "\n";
+		std::cout << "You have " << (60 - secondsPassed) << " seconds left.\n";
 		std::cout << "Your guess: ";
 
 		std::string guess;
+
+		
 		std::cin >> guess;
 
+	
+		ALLEGRO_EVENT event;
+		while (al_get_next_event(queue, &event)) {
+			if (event.type == ALLEGRO_EVENT_TIMER) {
+				secondsPassed++;
+			}
+		}
 
+		if (secondsPassed >= 60) {
+			std::cout << "\nTime's up!\n";
+			break;
+		}
+
+		
 		if (guess == selectedWords[i]) {
-			std::cout << "Correct! \n\n";
+			std::cout << "Correct!\n\n";
 			correctWords.push_back(guess);
 		}
 		else {
-			std::cout << "Incorrect. The correct word was " << selectedWords[i] << "\n\n";
+			std::cout << "Incorrect. The correct word was: " << selectedWords[i] << "\n\n";
 		}
 	}
+
+	al_destroy_timer(timer);
+	al_destroy_event_queue(queue);
 }
 
 void logic::showResults() {
 	int score = static_cast<int>(correctWords.size());
 
-	std::cout << "\n==============================\n";
+	std::cout << "\n\n";
 	std::cout << "         Game Results         \n";
-	std::cout << "==============================\n";
 	std::cout << "Correct Answers: " << score << " out of 5\n";
 
 

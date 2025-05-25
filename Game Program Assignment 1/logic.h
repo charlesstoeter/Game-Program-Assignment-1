@@ -14,7 +14,7 @@ public:
 	void loadWordsFromFile(const std::string& filename);
 	void selectRandomWords();
 	void scrambleWords();
-	void play();
+	void play(int secondsPassedSoFar);
 	void showResults();
 
 
