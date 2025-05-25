@@ -37,16 +37,20 @@ void logic::loadWordsFromFile(const std::string& filename) {
 
 void logic::selectRandomWords() {
 	srand(static_cast<unsigned int>(time(0))); // Seed 
-	for (int i = 0; i < 2 && list1.size() >= 2; i++) {
-		int index = rand() % list1.size();
-		selectedWords.push_back(list1[index]);
-		list1.erase(list1.begin() + index); //this prevents any duplications
+	if (list1.size() >= 2) {
+		for (int i = 0; i < 2; ++i) {
+			int index = rand() % list1.size();
+			selectedWords.push_back(list1[index]);
+			list1.erase(list1.begin() + index);
+		}
 	}
 
-	for (int i = 0; i < 2 && list2.size() >= 2; i++) {
-		int index = rand() % list2.size();
-		selectedWords.push_back(list2[index]);
-		list2.erase(list2.begin() + index); // dupliccates
+	if (list2.size() >= 2) {
+		for (int i = 0; i < 2; ++i) {
+			int index = rand() % list2.size();
+			selectedWords.push_back(list2[index]);
+			list2.erase(list2.begin() + index);
+		}
 	}
 
 	if (!list3.empty()) {

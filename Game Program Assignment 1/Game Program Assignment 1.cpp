@@ -38,21 +38,9 @@ int main() {
 	//starts the timer
 	al_start_timer(timer);
 
-	int secondsPassed = 0;
+	
 
-	while (true) {
-		ALLEGRO_EVENT event;
-		al_wait_for_event(event_queue, &event);
-
-		//if type statements
-		if (event.type == ALLEGRO_EVENT_TIMER) {
-			secondsPassed++;
-
-
-			game.play(secondsPassed);
-			break;
-		}
-	}
+	game.play(0);
 
 
 	al_destroy_timer(timer);
