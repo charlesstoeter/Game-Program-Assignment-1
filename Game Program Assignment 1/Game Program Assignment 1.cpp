@@ -1,40 +1,24 @@
-#include <iostream>
-#include <fstream>
-#include <ctime>
-#include <cstdlib>
-#include <vector>
-#include <algorithm>
-#include <string>
+#include "logic.h"
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 
-int main()
-{
-    std::cout << "Hello Welcome to the Scrambling Game!\n";
+void * input(ALLEGRO_THREAD* ptr, void* arg);
+void * timer(ALLEGRO_THREAD* ptr, void* arg);
 
+logic game;
 
-    
+int main() {
+    game.loadWordsFromFile("dictionary.txt");
+    game.selectRandomWords();
+    game.scrambleWords();
+    game.play();
+    game.showResults();
 
-	std::string word;
-	std::vector<std::string> list1;
-	std::vector<std::string> list2;
-	std::vector<std::string> list3;
+    return 0;
+}
 
-
-	while (file >> word) {
-		if (word.length() >= 4 && word.length() <= 5) {
-			list1.push_back(word);
-		} else if (word.length() >= 6 && word.length() <= 7) {
-			list2.push_back(word);
-		} else if (word.length() >= 8) {
-			list3.push_back(word);
-		}
-	}
-
-	file.close();
-
-	bool round = 1;
-
-
-
-
+void* input(ALLEGRO_THREAD* ptr, void* arg) {
+    bool finished = false;
 }
