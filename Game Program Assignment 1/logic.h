@@ -11,7 +11,7 @@ class logic
 public:
 	logic(); //constructor
 
-	void loadWordsFromFile(const std::string filename);
+	void loadWordsFromFile(const std::string& filename);
 	void selectRandomWords();
 	void scrambleWords();
 	void play();
