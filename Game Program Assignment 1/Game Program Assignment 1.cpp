@@ -2,22 +2,31 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <iostream>
 
-void * input(ALLEGRO_THREAD* ptr, void* arg);
-void * timer(ALLEGRO_THREAD* ptr, void* arg);
 
-logic game;
+
 
 int main() {
-    game.loadWordsFromFile("dictionary.txt");
-    game.selectRandomWords();
-    game.scrambleWords();
-    game.play();
-    game.showResults();
+	if (!al_init()) {
+		std::cerr << "Failed to initialize Allegro." << std::endl;
+		return -1;
+	}
 
-    return 0;
+	ALLEGRO_TIMER* timer = al_create_timer(1.0);
+	if (!timer) {
+		std::cerr << "Failed to create timer." << std::endl;
+		return -1;
+	}
+	
+
+	ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
+	if (!queue) {
+		std::cerr << "Failed to create event queue." << std::endl;
+		al_destroy_timer(timer);
+		return -1;
+	}
+
 }
 
-void* input(ALLEGRO_THREAD* ptr, void* arg) {
-    bool finished = false;
-}
+
