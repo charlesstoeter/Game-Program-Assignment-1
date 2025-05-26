@@ -15,12 +15,12 @@ void logic::loadWordsFromFile(const std::string& filename) {
 	std::ifstream file(filename);
 	std::string word;
 
-	if (!file.is_open()) {
+	if (!file.is_open()) { // Check if the file opens successfully
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return;
 	}
 
-	while (file >> word) {
+	while (file >> word) { // Read words from the file
 		if (word.length() >= 4 && word.length() <= 5) {
 			list1.push_back(word);
 		}
@@ -32,12 +32,12 @@ void logic::loadWordsFromFile(const std::string& filename) {
 		}
 	}
 	
-	file.close();
+	file.close(); // Close the file after reading
 }
 
-void logic::selectRandomWords() {
+void logic::selectRandomWords() { // Select random words from the lists
 	srand(static_cast<unsigned int>(time(0))); // Seed 
-	if (list1.size() >= 2) {
+	if (list1.size() >= 2) { 
 		for (int i = 0; i < 2; ++i) {
 			int index = rand() % list1.size();
 			selectedWords.push_back(list1[index]);
@@ -60,7 +60,7 @@ void logic::selectRandomWords() {
 	}
 }
 
-void logic::scrambleWords() {
+void logic::scrambleWords() { // Scramble the selected words
 	std::random_device rd;
 	std::mt19937 g(rd());
 
@@ -93,7 +93,7 @@ void logic::play(int secondsPassedSoFar) {
 
 	int secondsPassed = secondsPassedSoFar;
 
-	for (size_t i = 0; i < scrambledWords.size(); ++i) {
+	for (size_t i = 0; i < scrambledWords.size(); ++i) { // Loop through the scrambled words
 		if (secondsPassed >= 60) {
 			std::cout << "\nTime's up!\n";
 			break;
@@ -132,11 +132,12 @@ void logic::play(int secondsPassedSoFar) {
 		}
 	}
 
+	// clean up
 	al_destroy_timer(timer);
-	al_destroy_event_queue(queue);
+	al_destroy_event_queue(queue); 
 }
 
-void logic::showResults() {
+void logic::showResults() { // displaying the results of the game
 	int score = static_cast<int>(correctWords.size());
 
 	std::cout << "\n\n";
@@ -144,7 +145,7 @@ void logic::showResults() {
 	std::cout << "Correct Answers: " << score << " out of 5\n";
 
 
-	std::string level;
+	std::string level; //determine intellect level based on score
 	
 	if (score == 5) {
 		level = "Genius!";
