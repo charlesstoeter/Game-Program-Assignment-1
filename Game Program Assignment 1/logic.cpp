@@ -11,7 +11,7 @@
 
 logic::logic() {}
 
-void logic::loadWordsFromFile(const std::string& filename) {
+void logic::loadWordsFromFile(const std::string& filename) { // Load words from a file and categorize them into three lists based on their lengths
 	std::ifstream file(filename);
 	std::string word;
 
@@ -66,7 +66,7 @@ void logic::scrambleWords() { // Scramble the selected words
 
 	scrambledWords.clear(); // this allows to start fresh
 
-	for (const std::string& word : selectedWords) {
+	for (const std::string& word : selectedWords) { // Loop through each selected word
 		std::string scrambled = word;
 
 		std::shuffle(scrambled.begin(), scrambled.end(), g);
@@ -79,7 +79,7 @@ void logic::scrambleWords() { // Scramble the selected words
 
 }
 
-void logic::play(int secondsPassedSoFar) {
+void logic::play(int secondsPassedSoFar) { // Play the game, allowing the user to guess the unscrambled words
 	correctWords.clear();
 
 	std::cout << "\nWord Unscrambler Game\n";
